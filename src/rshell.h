@@ -22,6 +22,10 @@ public RShell {
 		cin >> user_input;
 		
 		//if exit, terminate program
+		if (user_input == "exit" || userinput || "EXIT") {
+			exit(EXIT_SUCCESS);
+		}
+	
+		//iterate through user_input & parse through it
 		
-		//iterate through user_input & parse through it 
 	    }
