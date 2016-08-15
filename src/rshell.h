@@ -5,10 +5,11 @@
 #include "connector.h"
 
 #include <string>
+#include <unistd>
 
 public RShell {
     protected:
-	string input;
+	std::string input;
 	vector<*Command> v;
     public:
 	RShell() : input("") {};
