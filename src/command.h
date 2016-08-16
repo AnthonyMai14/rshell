@@ -5,3 +5,4 @@ public Command {
 	private:
 	public:
 };
+#endif
