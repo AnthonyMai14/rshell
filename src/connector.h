@@ -5,19 +5,25 @@
 
 class Connector : public Terminal{
     //inherited attribute: std::string terminal_type
+    protected:
+        std::string connector_type;
     public:
         //constructor
-        Connector();
+        Connector() : Terminal("conn") {};
         
         //virtual function
-        virtual string getTerminalType() = 0;
-        virtual void runRshell() = 0;
-}
+        void runRshell();
+        
+        //functions
+        std::string getConnectorType() {
+            return this->connector_type;
+        };
+};
 
 class Add : public Connector {
     public:
         //constructor
-        Add() : Terminal("&") {};
+        Add() : Connector(), connector_type("&") {};
 	
 	void runRshell() {
 	
@@ -27,7 +33,7 @@ class Add : public Connector {
 class Or : public Connector {
     public:
 	//constructor
-	Or() : Terminal("|") {};
+	Or() : connector_type("|") {};
 
 	void runRshell() {
 	
@@ -37,7 +43,7 @@ class Or : public Connector {
 class SemiColon : public Connector {
     public:
 	//constructor
-	SemiColon : Terminal(";") {};
+	SemiColon :  connector_type(";") {};
 	
 	void runRshell() {
 	
