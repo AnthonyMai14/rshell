@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <unistd>
+#include <unistd.h>
 
 public RShell {
     protected:
