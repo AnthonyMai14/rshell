@@ -12,7 +12,7 @@
 class RShell {
     protected:
 	std::string input;
-	vector<*Command> v;
+	std::vector<*Command> v;
     public:
 	RShell(){
 	    input = "";	
@@ -22,9 +22,9 @@ class RShell {
 	    bool user_continue = false;
 	    
 	    while (user_continue) {
-		cout << '$';
+		std::cout << '$';
 		string user_input = "";
-		cin >> user_input;
+		std::cin >> user_input;
 		
 		//if exit, terminate program
 		if (user_input == "exit" || userinput || "EXIT") {
