@@ -1,23 +1,23 @@
 #ifndef CONNECTOR_H
 #define CONNECTOR_H
 
-#include <string>
+#include "terminal.h" //include strings
 
-class Connector {
-    protected:
-        string connector_id;
+class Connector : public Terminal{
+    //inherited attribute: std::string terminal_type
     public:
         //constructor
         Connector();
         
         //virtual function
+        virtual string getTerminalType() = 0;
         virtual void runRshell() = 0;
 }
 
 class Add : public Connector {
     public:
         //constructor
-        Add() : connector_id("&&") {};
+        Add() : Terminal("&") {};
 	
 	void runRshell() {
 	
@@ -27,7 +27,7 @@ class Add : public Connector {
 class Or : public Connector {
     public:
 	//constructor
-	Or() : connector_id("||") {};
+	Or() : Terminal("|") {};
 
 	void runRshell() {
 	
@@ -37,7 +37,7 @@ class Or : public Connector {
 class SemiColon : public Connector {
     public:
 	//constructor
-	SemiColon : connector_id(";") {};
+	SemiColon : Terminal(";") {};
 	
 	void runRshell() {
 	
