@@ -4,7 +4,9 @@
 #include "command.h"
 #include "connector.h"
 
+#include <iostream>
 #include <string>
+#include <vector>
 #include <unistd>
 
 public RShell {
@@ -12,7 +14,9 @@ public RShell {
 	std::string input;
 	vector<*Command> v;
     public:
-	RShell() : input("") {};
+	RShell(){
+	    input = "";	
+	};
 	
 	void run() {
 	    bool user_continue = false;
