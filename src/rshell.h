@@ -28,7 +28,7 @@ class RShell {
 		std::cin >> user_input;
 		
 		//if exit, terminate program
-		if (user_input == "exit" || userinput || "EXIT") {
+		if (user_input == "exit" || user_input == "EXIT") {
 			exit(EXIT_SUCCESS);
 		}
 		
