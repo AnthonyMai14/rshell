@@ -40,3 +40,4 @@ public RShell {
 
 		//iterate through user_input & parse through it	
 	    }
+#endif
