@@ -2,14 +2,14 @@
 #define RSHELL_H
 
 #include "command.h"
-#include "connector.h"
+//#include "connector.h"
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <unistd.h>
 
-public RShell {
+class RShell {
     protected:
 	std::string input;
 	vector<*Command> v;
