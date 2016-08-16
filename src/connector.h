@@ -14,7 +14,7 @@ class Connector {
         virtual void runRshell() = 0;
 }
 
-public Add : public Connector {
+class Add : public Connector {
     public:
         //constructor
         Add() : connector_id("&&") {};
@@ -24,7 +24,7 @@ public Add : public Connector {
 	};
 };
 
-public Or : public Connector {
+class Or : public Connector {
     public:
 	//constructor
 	Or() : connector_id("||") {};
@@ -34,7 +34,7 @@ public Or : public Connector {
 	};
 };
 
-public SemiColon : public Connector {
+class SemiColon : public Connector {
     public:
 	//constructor
 	SemiColon : connector_id(";") {};
