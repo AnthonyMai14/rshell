@@ -47,6 +47,17 @@ void RShell::run() {
 		parse(user_input);
 		//go through vector and check connectors 
 		//Note: use size to see if connector exist or not
+		if(v.size() != 1) { //if connectors exist
+			for (int i = 0; i < v.size();) {
+				//execute cmd
+				//return type
+				//check condition of connector
+					//depending on connector go to next cmd by changing 'i'
+			}
+		}
+		else {//if no connector
+			
+		}
     }
 };
 
@@ -73,7 +84,7 @@ void RShell::parse(std::string user_input) {
 			else if (user_input.at(i) == '|') { //TODO
 				
 			}
-			else if (user_input.at(i) == '\n') {
+			else if ( (i + 1) == user_input.size() ) {//if no connectors
 				//check if there is a connector
 					//if connector exist, delete it
 				Terminal* cmd = new Command(user_input.substr(0,i));
