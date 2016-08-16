@@ -3,7 +3,7 @@
 
 #include <string>
 
-public Connector {
+class Connector {
     protected:
         string connector_id;
     public:
