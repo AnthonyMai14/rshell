@@ -20,10 +20,7 @@ class RShell {
 		};
 		
 		void run();
-	// void parse(std::string user_input, std::vector<Command*> &v) {
-	// 	for (int i = 0; i < user_input; ++i) {
-	// 	}	
-	// };
+		void parse(std::string user_input, std::vector<Command*> v);
 };
 
 void RShell::run() {
@@ -48,5 +45,11 @@ void RShell::run() {
 
 		//iterate through user_input & parse through it
     }
+};
+
+void parse(std::string user_input, std::vector<Command*> &v) {
+	for (int i = 0; i < user_input.size(); ++i) {
+		
+	}	
 };
 #endif
