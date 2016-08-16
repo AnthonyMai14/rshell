@@ -13,14 +13,14 @@
 class RShell {
     protected:
 		std::string input;
-		std::vector<Command*> v;
+		std::vector<Terminal*> v;
     public:
 		RShell(){
 		    input = "";	
 		};
 		
 		void run();
-		void parse(std::string user_input, std::vector<Command*> v);
+		void parse(std::string user_input);
 };
 
 void RShell::run() {
@@ -44,12 +44,43 @@ void RShell::run() {
 		}
 
 		//iterate through user_input & parse through it
+		parse(user_input);
+		//go through vector and check connectors 
+		//Note: use size to see if connector exist or not
     }
 };
 
-void parse(std::string user_input, std::vector<Command*> &v) {
-	for (int i = 0; i < user_input.size(); ++i) {
-		
-	}	
+void RShell::parse(std::string user_input) {
+	
+	for (unsigned i = 0; i < user_input.size(); ++i) {
+		//if not empty space
+		if (user_input.at(i) != ' ') {
+			if (user_input.at(i) == ';') {
+				if (i != 0) { //prevents error if 2 consecutive semicolon
+					//std::cout << user_input.substr(marker, i) << std::endl; DELETE AFTER DONE
+					//create command object and push cmd into vector
+					Terminal* cmd = new Command(user_input.substr(0, i));
+					v.push_back(cmd);
+					//Terminal* conn = new SemiColon();
+					//v.push(conn);
+					user_input = user_input.substr(i + 1);	
+					//std::cout << user_input << std::endl; ----------------- DELETE AFTER DONE
+				}
+			}
+			else if (user_input.at(i) == '&') { //TODO
+				
+			}
+			else if (user_input.at(i) == '|') { //TODO
+				
+			}
+			else if (user_input.at(i) == '\n') {
+				//check if there is a connector
+					//if connector exist, delete it
+				Terminal* cmd = new Command(user_input.substr(0,i));
+				v.push_back(cmd);
+			}
+		}
+	}
 };
+
 #endif
