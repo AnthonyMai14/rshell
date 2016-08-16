@@ -1,15 +1,23 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include <string>
+#include "terminal.h"
 
-class Command {
+class Command : public Terminal{
 	private:
 		std::string cmd;
 	public:
-		Command() : cmd("") {};
+		//constructor
+		Command() : Terminal("cmd") {//default
+			cmd = "";
+		};
+		Command(std::string cmd) : Terminal("cmd") {
+			this->cmd = cmd;
+		};
+		
+		//function
 		void setCmd(std::string cmd) {
 			this->cmd = cmd;
-		}
+		};
 };
 #endif
