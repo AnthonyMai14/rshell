@@ -30,7 +30,13 @@ public RShell {
 		if (user_input == "exit" || userinput || "EXIT") {
 			exit(EXIT_SUCCESS);
 		}
-	
-		//iterate through user_input & parse through it
 		
+		//take out comments
+		for (unsigned i = 0; i < user_input.size(); ++i) {
+		    if (user_input.at(i) == "#") {
+			user_input = user_input.substr(0, i);
+		    }
+		}
+
+		//iterate through user_input & parse through it	
 	    }
