@@ -34,7 +34,7 @@ class RShell {
 		
 		//take out comments
 		for (unsigned i = 0; i < user_input.size(); ++i) {
-		    if (user_input.at(i) == "#") {
+		    if (user_input.at(i) == '#') {
 			user_input = user_input.substr(0, i);
 		    }
 		}
