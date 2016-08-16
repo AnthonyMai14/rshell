@@ -7,12 +7,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <unistd.h>
+#include <unistd.h> //getlogin, get username
+#include <stdlib.h> //exit()
 
 class RShell {
     protected:
 	std::string input;
-	std::vector<*Command> v;
+	std::vector<Command*> v;
     public:
 	RShell(){
 	    input = "";	
@@ -23,7 +24,7 @@ class RShell {
 	    
 	    while (user_continue) {
 		std::cout << '$';
-		string user_input = "";
+		std::string user_input = "";
 		std::cin >> user_input;
 		
 		//if exit, terminate program
