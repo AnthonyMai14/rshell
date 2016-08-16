@@ -47,29 +47,29 @@ void RShell::run() {
 		
 		//go through vector and check connectors 
 		//Note: use size to see if connector exist or not
-		std::cout << v.size() << std::endl; //------------------------DELETE AFTER DONE
+		//std::cout << v.size() << std::endl; //------------------------DELETE AFTER DONE
 		if(!v.empty()) {//if vector is not empty
-			for (int i = 0; i < v.size(); ++i) {
-				//execute cmd
-				//return type
-				if ( (v.size() % 2) == 0 ) {//exist a connector
-					if (v.at(i)->getTerminalType() == "conn") {
-						//check condition of connector
-						//depending on connector go to next cmd by changing 'i'
-						std::string conn_type = v.at(i)->getConnectorType();
-						if (conn_type == "&") {
+			// for (int i = 0; i < v.size(); ++i) {
+			// 	//execute cmd
+			// 	//return type
+			// 	if ( (v.size() % 2) == 0 ) {//exist a connector
+			// 		if (v.at(i)->getTerminalType() == "conn") {
+			// 			//check condition of connector
+			// 			//depending on connector go to next cmd by changing 'i'
+			// 			std::string conn_type = v.at(i)->getConnectorType();
+			// 			if (conn_type == "&") {
 							
-						}
-						else if (conn_type == "|") {
+			// 			}
+			// 			else if (conn_type == "|") {
 							
-						}
-						else if (conn_type == ";" ) {
+			// 			}
+			// 			else if (conn_type == ";" ) {
 							
-						}
-						//------------------------potential bug if conn doesn't exist
-					}
-				}
-			}
+			// 			}
+			// 			//------------------------potential bug if conn doesn't exist
+			// 		}
+			// 	}
+			// }
 			//after finish executing empty the vector for next commands
 			while (!v.empty()) {
 				v.pop_back();
@@ -89,8 +89,8 @@ void RShell::parse(std::string user_input) {
 					//create command object and push cmd into vector
 					Terminal* cmd = new Command(user_input.substr(0, i));
 					v.push_back(cmd);
-					//Terminal* conn = new SemiColon();
-					//v.push(conn);
+					Terminal* conn = new SemiColon();
+					v.push_back(conn);
 					user_input = user_input.substr(i + 1);	
 					//std::cout << user_input << std::endl; ----------------- DELETE AFTER DONE
 				}
