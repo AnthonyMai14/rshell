@@ -2,7 +2,7 @@
 #define RSHELL_H
 
 #include "command.h"
-//#include "connector.h"
+#include "connector.h"
 
 #include <iostream>
 #include <string>
@@ -25,7 +25,6 @@ class RShell {
 
 void RShell::run() {
     bool user_continue = true;
-    
     while (user_continue) {
 		std::cout << '$';
 		std::string user_input = "";
@@ -45,18 +44,36 @@ void RShell::run() {
 
 		//iterate through user_input & parse through it
 		parse(user_input);
+		
 		//go through vector and check connectors 
 		//Note: use size to see if connector exist or not
-		if(v.size() != 1) { //if connectors exist
-			for (int i = 0; i < v.size();) {
+		std::cout << v.size() << std::endl; //------------------------DELETE AFTER DONE
+		if(!v.empty()) {//if vector is not empty
+			for (int i = 0; i < v.size(); ++i) {
 				//execute cmd
 				//return type
-				//check condition of connector
-					//depending on connector go to next cmd by changing 'i'
+				if ( (v.size() % 2) == 0 ) {//exist a connector
+					if (v.at(i)->getTerminalType() == "conn") {
+						//check condition of connector
+						//depending on connector go to next cmd by changing 'i'
+						std::string conn_type = v.at(i)->getConnectorType();
+						if (conn_type == "&") {
+							
+						}
+						else if (conn_type == "|") {
+							
+						}
+						else if (conn_type == ";" ) {
+							
+						}
+						//------------------------potential bug if conn doesn't exist
+					}
+				}
 			}
-		}
-		else {//if no connector
-			
+			//after finish executing empty the vector for next commands
+			while (!v.empty()) {
+				v.pop_back();
+			}
 		}
     }
 };
@@ -87,8 +104,9 @@ void RShell::parse(std::string user_input) {
 			else if ( (i + 1) == user_input.size() ) {//if no connectors
 				//check if there is a connector
 					//if connector exist, delete it
-				Terminal* cmd = new Command(user_input.substr(0,i));
+				Terminal* cmd = new Command(user_input.substr(0,i + 1));
 				v.push_back(cmd);
+				user_input = ""; //initialize to empty string
 			}
 		}
 	}
