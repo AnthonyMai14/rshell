@@ -1,7 +1,7 @@
 #ifndef RSHELL_H
 #define RSHELL_H
 
-#include "command.h"
+//#include "command.h"
 //#include "connector.h"
 
 #include <iostream>
@@ -12,12 +12,12 @@
 
 class RShell {
     protected:
-	std::string input;
-	std::vector<Command*> v;
+		std::string input;
+		//std::vector<Command*> v;
     public:
-	RShell(){
-	    input = "";	
-	};
+		RShell(){
+		    input = "";	
+		};
 	
 	void run() {
 	    bool user_continue = false;
@@ -41,4 +41,6 @@ class RShell {
 
 		//iterate through user_input & parse through it	
 	    }
+	};
+};
 #endif
