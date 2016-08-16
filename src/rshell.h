@@ -25,7 +25,7 @@ class RShell {
 	    while (user_continue) {
 		std::cout << '$';
 		std::string user_input = "";
-		getline(cin, user_input);
+		getline(std::cin, user_input);
 		
 		//if exit, terminate program
 		if (user_input == "exit" || user_input == "EXIT") {
