@@ -23,23 +23,23 @@ class RShell {
 	    bool user_continue = true;
 	    
 	    while (user_continue) {
-		std::cout << '$';
-		std::string user_input = "";
-		getline(std::cin, user_input);
-		
-		//if exit, terminate program
-		if (user_input == "exit" || user_input == "EXIT") {
-			exit(EXIT_SUCCESS);
-		}
-		
-		//take out comments
-		for (unsigned i = 0; i < user_input.size(); ++i) {
-		    if (user_input.at(i) == '#') {
-			user_input = user_input.substr(0, i);
-		    }
-		}
+			std::cout << '$';
+			std::string user_input = "";
+			getline(std::cin, user_input);
+			
+			//if exit, terminate program
+			if (user_input == "exit" || user_input == "EXIT") {
+				exit(EXIT_SUCCESS);
+			}
+			
+			//take out comments
+			for (unsigned i = 0; i < user_input.size(); ++i) {
+			    if (user_input.at(i) == '#') {
+					user_input = user_input.substr(0, i);
+			    }
+			}
 
-		//iterate through user_input & parse through it	
+			//iterate through user_input & parse through it
 	    }
 	};
 };
