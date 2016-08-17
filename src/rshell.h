@@ -28,16 +28,15 @@ class RShell {
 		};
 		
 		void run();
-		void parse(std::string user_input);
+		void parse(std::string& user_input);
 		void cmdCreate(std::string user_input, unsigned i);
 		void whitespace(std::string user_input, unsigned i);
 };
 
 void RShell::run() {
-    bool user_continue = true;
-    while (user_continue) {
-		std::cout << '$';
-		std::string user_input = "";
+    std::string user_input = "";
+    while (1) {
+		std::cout << '$'; 
 		getline(std::cin, user_input);
 		
 		//if exit, terminate program
@@ -54,13 +53,13 @@ void RShell::run() {
 
 		//iterate through user_input & parse through it
 		parse(user_input);
-		
+
 		//go through vector and check connectors 
 		//Note: use size to see if connector exist or not
 		//std::cout << v.size() << std::endl; //------------------------DELETE AFTER DONE
 		if(!v.empty()) {//if vector is not empty
 			//iterator through vectors and call commands 
-			for (int i = 0; i < v.size(); ++i) {
+			for (unsigned i = 0; i < v.size(); ++i) {
 				//execute cmd
 				if ( (i % 2) == 0) {
 					v.at(i)->execute();
@@ -85,6 +84,10 @@ void RShell::run() {
 				}
 			}
 			//after finish executing empty the vector for next commands
+			for (unsigned i = 0; i < v.size(); ++i) {
+				delete v.at(i);
+				v.at(i) = 0;
+			}
 			while (!v.empty()) {
 				v.pop_back();
 			}
@@ -92,12 +95,11 @@ void RShell::run() {
     }
 };
 
-void RShell::parse(std::string user_input) {
+void RShell::parse(std::string& user_input) {
 	
 	for (unsigned i = 0; i < user_input.size(); ++i) {
 		//if not empty space
 		if (user_input.at(i) != ' ') {
-			
 			if (user_input.at(i) == ';') {
 				try{
 					if (i + 1 == user_input.size()) {//if no other arguement
@@ -145,7 +147,7 @@ void RShell::parse(std::string user_input) {
 				
 				whitespace(user_input ,i);
 			}
-			else if (user_input.at(i) == '|') { //TODO
+			else if (user_input.at(i) == '|') {
 				try{
 					if (i + 1 == user_input.size() ||
 						i + 2 == user_input.size() ||
@@ -182,9 +184,16 @@ void RShell::parse(std::string user_input) {
 void RShell::cmdCreate(std::string user_input, unsigned i) {
 	Command* cmd = new Command();
 	unsigned j;
-	for (j = 0; user_input.at(j) != ' '; ++j) {}
-	cmd->setCmd( user_input.substr(0, j) );
-	cmd->setArg( user_input.substr(j + 1, i - (j+ 1) ) );
+	for (j = 0; j < user_input.size(); ++j) {
+		if (user_input.at(j) != ' ') {//if empty place exist
+			cmd->setCmd( user_input.substr(0, j) );
+			cmd->setArg( user_input.substr(j + 1, i - (j+ 1) ) );
+		}
+	}
+	if (j == user_input.size()) { //there's not argument
+		cmd->setCmd( user_input.substr(0, j) );
+		cmd->setArg("");
+	}
 	v.push_back(cmd);
 }
 
