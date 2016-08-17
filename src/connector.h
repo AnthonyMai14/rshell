@@ -12,23 +12,23 @@ class Connector : public Terminal{
         Connector() : Terminal("conn") {
         };
         
-        //virtual function
-        void runRshell();
         
         //functions
         std::string getConnectorType() {
             return this->connector_type;
         };
+        
+        virtual void execute() = 0;
 };
 
-class Add : public Connector {
+class And : public Connector {
     public:
         //constructor
-        Add() {
+        And() {
             connector_type = "&";
         };
 	
-	void runRshell() {
+	void execute() {
 	
 	};
 };
@@ -40,7 +40,7 @@ class Or : public Connector {
 	    connector_type = "|";
 	};
 
-	void runRshell() {
+	void execute() {
 	
 	};
 };
@@ -52,7 +52,7 @@ class SemiColon : public Connector {
 	    connector_type = ";";
 	};
 	
-	void runRshell() {
+	void execute() {
 	
 	};
 };
