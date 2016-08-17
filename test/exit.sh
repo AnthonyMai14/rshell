@@ -1,4 +1,5 @@
-exit #normal 
-ls -a || exit #should work
-EXIT #normal 
-ls -a && exit 
+exit 
+EXIT 
+ls -1 && exit 
+ls -a || exit
+pwd ; exit 
