@@ -172,8 +172,6 @@ void RShell::parse(std::string& user_input) {
 				whitespace(user_input ,i);
 			}
 			else if ( (i + 1) == user_input.size() ) {//if no connectors
-				//check if there is a connector
-					//if connector exist, delete it
 				cmdCreate(user_input, i);
 				user_input = ""; //initialize to empty string
 			}
@@ -182,15 +180,19 @@ void RShell::parse(std::string& user_input) {
 };
 
 void RShell::cmdCreate(std::string user_input, unsigned i) {
-	Command* cmd = new Command();
+	Command* cmd = cmd = new Command();;
 	unsigned j;
+	
 	for (j = 0; j < user_input.size(); ++j) {
-		if (user_input.at(j) != ' ') {//if empty place exist
+		if (user_input.at(j) == ' ') {//if empty place exist
 			cmd->setCmd( user_input.substr(0, j) );
-			cmd->setArg( user_input.substr(j + 1, i - (j+ 1) ) );
+			cmd->setArg( user_input.substr(j + 1, i - j ) );
+			break;
 		}
+	
+		
 	}
-	if (j == user_input.size()) { //there's not argument
+	if (j != user_input.size()) { //there's not argument
 		cmd->setCmd( user_input.substr(0, j) );
 		cmd->setArg("");
 	}
