@@ -17,5 +17,8 @@ class Terminal {
         std::string getTerminalType() {
             return terminal_type;
         };
+        
+        //pure virtual function
+        virtual void execute() = 0;
 };
 #endif
