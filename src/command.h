@@ -39,12 +39,15 @@ class Command : public Terminal{
 };
 
 void Command::setCmd(std::string cmd) {
-	this->cmd_exec = new char[cmd.length() +1];
+	this->cmd_exec = new char[cmd.size() + 1];
 	strcpy(cmd_exec, cmd.c_str());
+	this->cmd_exec[cmd.size()] = '\0';
+	
 };
 void Command::setArg(std::string argu) {
-	this->cmd_argu = new char[argu.length() +1];
+	this->cmd_argu = new char[argu.length()];
 	strcpy(cmd_argu, argu.c_str());
+	this->cmd_argu[argu.size()] = '\0';
 }
 
 void Command::execute(char **arr) {
