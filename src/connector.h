@@ -1,59 +1,43 @@
 #ifndef CONNECTOR_H
 #define CONNECTOR_H
 
-#include "terminal.h" //include strings
+#include "base.h" //include strings
 #include <iostream>
-class Connector : public Terminal{
-    //inherited attribute: std::string terminal_type
+
+//Abstract Composite Class
+class Connector : public Base{
+    //inherited attribute: std::string base_type
     protected:
-        std::string connector_type;
+        Base* left;
+        Base* right;
+        
     public:
-        //constructor
-        Connector() : Terminal("conn") {
-        };
+        Connector();
         
-        
-        //functions
-        std::string getConnectorType() {
-            return this->connector_type;
-        };
-        
-        virtual void execute() = 0;
+        void setLeftChild(Base* l);
+        void setRightChild(Base * r);
+        virtual bool execute() = 0;
 };
 
+//Composite Class
 class And : public Connector {
     public:
-        //constructor
-        And() {
-            connector_type = "&";
-        };
-	
-	void execute() {
-	
-	};
+        And(){};
+        
+        bool execute();
 };
 
 class Or : public Connector {
     public:
-	//constructor
-	Or()  {
-	    connector_type = "|";
-	};
-
-	void execute() {
-	
-	};
+		Or(){};
+		
+		bool execute();
 };
 
 class SemiColon : public Connector {
     public:
-	//constructor
-	SemiColon() {
-	    connector_type = ";";
-	};
-	
-	void execute() {
-	
-	};
+		SemiColon(){};
+		
+		bool execute();
 };
 #endif

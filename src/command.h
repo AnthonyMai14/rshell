@@ -1,81 +1,37 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include "terminal.h"
+#include "base.h"
 
-#include <iostream> //cout
-#include <unistd.h> //fork, execvp, waitpid
+#include <unistd.h> //fork, execvp
+#include <sys/types.h> //waitpid
+#include <sys/wait.h> // waitpid
+#include <stdio.h> //perror
 #include <stdexcept> //throw
 #include <cstring> //c.str()
 #include <stdlib.h> //exit
+#include <vector>
 
-class Command : public Terminal{
+class Command : public Base{
 	private:
-		char* cmd_exec;
-		char* cmd_argu;
+		std::vector<std::string> parse_cmd;
+		std::vector<char*> cmd_line;
 		
-		int status; //cmd execute successful(1), unsuccessful(-1)
-		
-		void execute(char **arr);
+		//check to see if keyword "exit" exist
+		//if so terminate
+		void exitFlag();
+		//set index of cmd_line to point to first character in parse_cmd
+		//to satisfy requirement for execvp
+		void createCharPointer();
+		bool callFork();
 		
 	public:
-		//constructor
-		Command() : Terminal("cmd") {
-			status = 0;
-		};
-		//destructor
-		~Command() {
-			delete [] cmd_exec;
-			delete [] cmd_argu;
-		}
-
-		//function
-		void setCmd(std::string cmd);
-		void setArg(std::string argu);
-		void execute(); //override virtual
+		Command();
+		Command(std::vector<std::string> &);
 		
-		int getStatus();
+		bool execute();
+
 		
 };
 
-void Command::setCmd(std::string cmd) {
-	this->cmd_exec = new char[cmd.size() + 1];
-	strcpy(cmd_exec, cmd.c_str());
-	this->cmd_exec[cmd.size()] = '\0';
-	
-};
-void Command::setArg(std::string argu) {
-	this->cmd_argu = new char[argu.length()];
-	strcpy(cmd_argu, argu.c_str());
-	this->cmd_argu[argu.size()] = '\0';
-}
-
-void Command::execute(char **arr) {
-	int pid = fork();
-	
-	if (pid < 0) {//if child error
-		//fork error
-		exit(1);
-	}
-	else if (pid == 0) { //if child
-		if (execvp(*arr, arr) < 0 ) {
-			status = -1;
-			exit(1);
-		}
-		status = 1;
-	}
-	else{ //if parent
-		
-	}
-};
-
-void Command::execute() {
-	
-	char *arr[] = {cmd_exec, cmd_argu, NULL};
-	execute(arr);
-};
-
-int Command::getStatus() {
-	return status;
-};
 #endif
