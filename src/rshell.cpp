@@ -27,6 +27,9 @@ void RShell::run() {
 		binaryExpressionTree(parsed_input);
         
         executeCmds();
+        
+        cmd_tree.clear();
+        user_input = "";
     }
 }
 
@@ -174,7 +177,7 @@ void RShell::createCmd(std::vector<std::string> &parsed_input, unsigned i, unsig
 }
 
 void RShell::executeCmds() {
-    if (!cmd_tree.empty() && cmd_tree.at(0)->execute()) {
-        cmd_tree.clear();
+    if (cmd_tree.at(0)->execute() ) {
+        //do nothing.. because already execute
     }
 }
