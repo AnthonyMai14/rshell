@@ -32,6 +32,7 @@ bool Command::callFork() {
     if (pid < 0) {
         //fork failed to execute
         perror("Forking Failed: ");
+        parse_cmd.clear();
         exit(1);
     }
     if (pid == 0) {
