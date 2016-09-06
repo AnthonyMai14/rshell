@@ -2,7 +2,6 @@
 #define CONNECTOR_H
 
 #include "base.h" //include strings
-#include <iostream>
 
 //Abstract Composite Class
 class Connector : public Base{
@@ -40,4 +39,12 @@ class SemiColon : public Connector {
 		
 		bool execute();
 };
+
+class OpenParenthesis : public Connector {
+    public:
+        OpenParenthesis();
+        
+        bool execute();
+};
+
 #endif

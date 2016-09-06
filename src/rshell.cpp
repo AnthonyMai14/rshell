@@ -39,16 +39,24 @@ void RShell::parse(std::vector<std::string> &parsed_input) {
     bool not_in_quotes = true;
     for (unsigned i = 0; i < user_input.size(); ++i) {
         //checks to see if quotes exist. If exist, will ignore parenthesis
-        //within the quotes 
-        //Note: won't take care of special characters
+        //within the quotes
         if (user_input.at(i) == '\"') {
             not_in_quotes = !not_in_quotes; //toggle not_in_quotes
         }
-        //if not_in_quotes == 1, valid connector
+        //if not_in_quotes == 1, valid connector OR parenthesis
+        //if conn/parath found, insert ' ' before or after for parsing below
         if (not_in_quotes) {
-           if (user_input.at(i) == ';') {
+           if (user_input.at(i) == ';' || user_input.at(i) == ')') {
                 user_input.insert(i, " ");
+                //++i will skip the conn/parath when checking value in next
+                //iteration of for-loop
                 ++i;
+            }
+            else if (user_input.at(i) == '(') {
+                user_input.insert(i + 1, " "); 
+                //++i will skip the conn/parath when checking value in next
+                //iteration of for-loop
+                ++i; 
             }
         }
     }
@@ -58,7 +66,7 @@ void RShell::parse(std::vector<std::string> &parsed_input) {
     char char_user_input[1024];
     strcpy(char_user_input, user_input.c_str());
     
-    //parse user_input and store in parsed_input 
+    //begin parsing user_input and store in parsed_input using strtok
     char *ptr;
     //parse white space
     ptr = strtok(char_user_input, " "); 
@@ -77,6 +85,8 @@ void RShell::binaryExpressionTree(std::vector<std::string> &parsed_input) {
     const std::string a = "&&";
     const std::string o = "||";
     const std::string s = ";";
+    const std::string op = "(";
+    const std::string cp = ")";
     
     //create stack to store operator. Convert infix to postfix
     std::stack<Connector*> cmd_stack; 
@@ -114,6 +124,16 @@ void RShell::binaryExpressionTree(std::vector<std::string> &parsed_input) {
             //push new operator onto stack
             cmd_stack.push(new SemiColon());
         }
+        else if (parsed_input.at(i) == cp) {
+            //keep create tree until find open parenthesis
+            while (cmd_stack.top()->getBaseType() != op) {
+                createTree(cmd_stack);
+            }
+            cmd_stack.pop();
+        }
+        else if (parsed_input.at(i) == op) {
+            cmd_stack.push(new OpenParenthesis());
+        }
         else {//is part of the bash cmds
             //iterate until find a conn
             unsigned j = 0;
@@ -121,7 +141,8 @@ void RShell::binaryExpressionTree(std::vector<std::string> &parsed_input) {
                 //if conn found
                 if (parsed_input.at(j) == a || 
                     parsed_input.at(j) == o ||
-                    parsed_input.at(j) == s ) {
+                    parsed_input.at(j) == s ||
+                    parsed_input.at(j) == cp) {
                         //store strings into new Fork
                         createCmd(parsed_input, i, j);
                         i = j - 1; //need to add the conn
@@ -155,6 +176,7 @@ void RShell::createTree(std::stack<Connector*> &cmd_stack) {
         cmd_tree.push_back(cmd_stack.top());
         cmd_stack.pop();
     }
+    //else-if getBaseType() == "(") { //do nothing }
 }
 
 void RShell::createCmd(std::vector<std::string> &parsed_input, unsigned i, unsigned j) {

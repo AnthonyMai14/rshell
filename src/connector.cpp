@@ -35,3 +35,13 @@ bool SemiColon::execute() {
     temp = right->execute();
     return temp;
 }
+
+//--------------------------------------------------------------------------
+// OpenParenthesis Class
+//--------------------------------------------------------------------------
+OpenParenthesis::OpenParenthesis() : Connector() {
+    base_type = "(";
+}
+bool OpenParenthesis::execute() {
+    return true;
+}
