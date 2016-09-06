@@ -1,4 +1,4 @@
-#include "rshell.h"
+#include "../header/rshell.h"
 
 int main() {
     RShell rshell;
