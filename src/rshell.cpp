@@ -177,7 +177,7 @@ void RShell::createCmd(std::vector<std::string> &parsed_input, unsigned i, unsig
 }
 
 void RShell::executeCmds() {
-    if (cmd_tree.at(0)->execute() ) {
+    if (!cmd_tree.empty() && cmd_tree.at(0)->execute() ) {
         //do nothing.. because already execute
     }
 }
