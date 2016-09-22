@@ -14,9 +14,6 @@
 
 class Command : public Base{
 	private:
-		std::vector<std::string> parse_cmd;
-		std::vector<char*> cmd_line;
-		
 		//check to see if keyword "exit" exist
 		//if so terminate
 		void exitFlag();
@@ -24,6 +21,10 @@ class Command : public Base{
 		//to satisfy requirement for execvp
 		void createCharPointer();
 		bool callFork();
+		
+	protected:
+		std::vector<std::string> parse_cmd;
+		std::vector<char*> cmd_line;
 		
 	public:
 		Command();

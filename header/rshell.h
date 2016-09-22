@@ -3,6 +3,7 @@
 
 #include "command.h"
 #include "connector.h"
+#include "tester.h"
 
 #include <iostream>
 #include <string>
@@ -23,6 +24,7 @@ class RShell {
 		void binaryExpressionTree(std::vector<std::string> &);
 		void createTree(std::stack<Connector*> &);
 		void createCmd(std::vector<std::string> &, unsigned, unsigned);
+		void createTester(std::vector<std::string> &, unsigned, unsigned);
 		void executeCmds();
 		
     public:
