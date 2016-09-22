@@ -242,17 +242,21 @@ void RShell::createTree(std::stack<Connector*> &cmd_stack) {
 }
 
 void RShell::createCmd(std::vector<std::string> &parsed_input, unsigned i, unsigned j) {
+    //----------------------TODO-----------FIX ME.......quote issue, need so that quote needs to be closed in 2nd arguement
+    //if just "echo"...aborts....fix!!!
     std::vector<std::string> parsed_cmd;
     for (unsigned k = i; k < j; ++k) {
         //quotes should only appear on second index
         //if not, will cause error when running cmd in excvp (command.cpp)
-        std::cout << parsed_input.at(k) << " " << k << std::endl;
-        if (k == 1) {
+        //std::cout << parsed_input.at(k) << " " << k << std::endl;
+        if (parsed_input.at(k) == "echo") {
+            parsed_cmd.push_back(parsed_input.at(k));
+            ++k;
             std::string &temp = parsed_input.at(k);
             for (unsigned l = 0; l < temp.size(); ++l) {
                 if (temp.at(l) == '"') {
                     temp.erase(temp.begin() + l);
-                    std::cout << "quote..." << std::endl;
+                    //std::cout << "quote..." << std::endl;
                 }
             }
         }
